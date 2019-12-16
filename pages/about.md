@@ -16,7 +16,7 @@ Node.js and eventually my job split into two. Ever since, I have continued to le
 to apply them to my various mathematical, statistical, and actuarial tasks, including developing a method of scaling
 computations in R using the [rminions](https://github.com/PieceMaker/rminions) package. I presented this method at
 [useR! 2016](http://user2016.r-project.org/) and
-[R in Insurance, London 2016](https://insurancedatascience.org/project/london2016/).
+[R in Insurance, London 2016](https://insurancedatascience.org/project/2016_london/).
 
 When I'm not working or studying for actuarial exams, I enjoy travelling, the outdoors, cooking, and playing amateur
 mechanic. I like trail running and mountain biking and, along with hitting up my local trails, I try to make my way to
@@ -28,4 +28,4 @@ recommendation.
 
 On the technology front, you can find my personal projects on [GitHub](https://github.com/PieceMaker).
 
--Jonathan:
+-Jonathan
