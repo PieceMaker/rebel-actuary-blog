@@ -9,7 +9,7 @@ import BootstrapVue from 'bootstrap-vue';
 // Vue Bootstrap
 //-----------------------------------------------------------------------------------------------------------------------
 
-import 'bootstrap/dist/css/bootstrap.css';
+import './style/theme.scss';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(BootstrapVue);

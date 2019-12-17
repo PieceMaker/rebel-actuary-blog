@@ -13,8 +13,10 @@
   "dependencies": {
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.1.0",
+    "bootswatch": "^4.4.1",
     "saber": "^0.11.3",
     "saber-plugin-query-posts": "^0.4.5",
-    "saber-theme-tailsaw": "^1.4.3"
+    "sass": "^1.23.7",
+    "sass-loader": "^8.0.0"
   }
 }
