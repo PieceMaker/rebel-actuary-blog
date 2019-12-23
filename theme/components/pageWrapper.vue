@@ -9,7 +9,10 @@
                         class="text-center text-muted hide-background"
                         v-show="isPost"
                     >
-                        {{page.createdAt}}
+                        Created: {{formatDate(page.createdAt)}}
+                        <div v-show="isUpdated">
+                            Updated: {{formatDate(page.updatedAt)}}
+                        </div>
                     </b-card-footer>
                 </b-card>
             </b-col>
@@ -20,6 +23,10 @@
 <style lang="scss" scoped>
     .page-wrapper {
         padding-top: 50px;
+
+        .card-body {
+            padding-bottom: 0;
+        }
 
         .hide-background {
             background-color: rgba(0,0,0,0);
@@ -36,6 +43,8 @@
 </style>
 
 <script>
+    import formatDate from '../../util/formatDate';
+
     export default {
         name: "PageWrapper",
         props: {
@@ -50,6 +59,14 @@
         computed: {
             isPost() {
                 return this.page.type === 'post';
+            },
+            isUpdated() {
+                return !!this.page.updated;
+            }
+        },
+        methods: {
+            formatDate(date) {
+                return formatDate(date);
             }
         }
     }
