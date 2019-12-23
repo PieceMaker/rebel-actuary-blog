@@ -20,6 +20,7 @@
 </template>
 
 <script>
+    import formatDate from '../../util/formatDate';
     import navbar from '../components/navbar.vue'
     import PageWrapper from "../components/pageWrapper";
 
@@ -30,9 +31,8 @@
         },
         props: ['page'],
         methods: {
-            formatDate(v) {
-                const date = new Date(v);
-                return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`;
+            formatDate(created) {
+                return formatDate(created);
             }
         },
         head() {
