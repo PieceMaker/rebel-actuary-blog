@@ -12,7 +12,7 @@
                         >
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="text-primary">{{post.title}}</h5>
-                                <small>{{formatDate(page.createdAt)}}</small>
+                                <small>{{formatDate(post.createdAt)}}</small>
                             </div>
                         </b-list-group-item>
                     </b-list-group>
