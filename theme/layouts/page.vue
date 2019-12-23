@@ -1,7 +1,9 @@
 <template>
     <div>
         <navbar></navbar>
-        <slot name="default"></slot>
+        <page-wrapper :page="page">
+            <slot name="default"></slot>
+        </page-wrapper>
         <div class="recent-posts" v-if="page.posts">
             <ul>
                 <li v-for="post in page.posts" :key="post.permalink">
@@ -19,10 +21,12 @@
 
 <script>
     import navbar from '../components/navbar.vue'
+    import PageWrapper from "../components/pageWrapper";
 
     export default {
         components: {
-            navbar
+            navbar,
+            PageWrapper
         },
         props: ['page'],
         methods: {
