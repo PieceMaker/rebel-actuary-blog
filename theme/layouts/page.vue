@@ -9,12 +9,12 @@
 
 <script>
     import formatDate from '../../util/formatDate';
-    import navbar from '../components/navbar.vue'
+    import Navbar from '../components/navbar'
     import PageWrapper from "../components/pageWrapper";
 
     export default {
         components: {
-            navbar,
+            Navbar,
             PageWrapper
         },
         props: ['page'],

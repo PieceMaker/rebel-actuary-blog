@@ -24,7 +24,7 @@
 
 <script>
     import formatDate from '../util/formatDate';
-    import navbar from '../theme/components/navbar';
+    import Navbar from '../theme/components/navbar';
 
     export const data = {
         injectAllPosts: true
@@ -32,7 +32,7 @@
 
     export default {
         components: {
-            navbar
+            Navbar
         },
         props: ['page'],
         methods: {
