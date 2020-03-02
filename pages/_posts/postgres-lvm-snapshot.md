@@ -45,12 +45,12 @@ For simplicity, this article uses a file loopback. This is sufficient for develo
 production. This article assumes a loopback file exists at `/var/lib/postgresql/data.vol` and is mounted at
 `/dev/loop5`. You can create and mount it as follows:
 
-```bash
+<highlight-code lang="bash">
 sudo su postgres
 truncate -s 150G /var/lib/postgresql/data.vol
 exit
 sudo losetup /dev/loop5 /var/lib/postgresql/data.vol
-```
+</highlight-code>
 
 Note, I chose 150G as this size is sufficient for the database I am using. Your size will likely differ.
 
@@ -58,10 +58,10 @@ Note, I chose 150G as this size is sufficient for the database I am using. Your 
 
 Ensure thin provisioning tools are available in Ubuntu.
 
-```bash
+<highlight-code lang="bash">
 sudo apt-get update
 sudo apt-get install thin-provisioning-tools
-```
+</highlight-code>
 
 ### Volumes
 
@@ -80,13 +80,13 @@ The physical volumes represent available storage media. These are typically part
 used for storage, but in our example it will be a loopback device. To register our loopback device as a physical volume
 we run
 
-```bash
+<highlight-code lang="bash">
 pvcreate /dev/loop5
-# Physical volume "/dev/loop5" successfully created
+\# Physical volume "/dev/loop5" successfully created
 pvs -a
-# PV                        VG     Fmt  Attr PSize   PFree 
-# /dev/loop5                       lvm2 ---  150.00g 150.00g
-```
+\# PV                        VG     Fmt  Attr PSize   PFree 
+\# /dev/loop5                       lvm2 ---  150.00g 150.00g
+</highlight-code>
 
 #### Volume Groups
 
@@ -94,13 +94,13 @@ Next we need to add a volume group. Volume groups can consist of multiple physic
 cases we will only use our single loopback physical volume. To add this volume to a group we will call "docker", run the
 following:
 
-```bash
+<highlight-code lang="bash">
 vgcreate docker /dev/loop5
-# Volume group "docker" successfully created
+\# Volume group "docker" successfully created
 vgs -a
-# VG     #PV #LV #SN Attr   VSize   VFree 
-# docker   1   0   0 wz--n- 150.00g 150.00g
-```
+\# VG     #PV #LV #SN Attr   VSize   VFree 
+\# docker   1   0   0 wz--n- 150.00g 150.00g
+</highlight-code>
 
 #### Logical Volumes
 
@@ -112,32 +112,32 @@ create thin volumes we will create them inside this pool.
 To create our thin pool, run the following command. Note that we use the option `-l 100%FREE` to specify that the thin
 pool should be assigned all free space in the volume group.
 
-```
+<highlight-code lang="bash">
 lvcreate -l 100%FREE --thinpool thin_pool docker
-# Logical volume "thin_pool" created.
+\# Logical volume "thin_pool" created.
 lvs -a
-# LV                VG     Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
-# [lvol0_pmspare]   docker ewi-------  76.00m                                                    
-# thin_pool         docker twi-a-tz-- 149.85g             0.00   0.44                            
-# [thin_pool_tdata] docker Twi-ao---- 149.85g                                                    
-# [thin_pool_tmeta] docker ewi-ao----  76.00m
-```
+\# LV                VG     Attr       LSize   Pool Origin Data%  Meta%  Move Log Cpy%Sync Convert
+\# [lvol0_pmspare]   docker ewi-------  76.00m                                                    
+\# thin_pool         docker twi-a-tz-- 149.85g             0.00   0.44                            
+\# [thin_pool_tdata] docker Twi-ao---- 149.85g                                                    
+\# [thin_pool_tmeta] docker ewi-ao----  76.00m
+</highlight-code>
 
 Now that the thin pool has been created, we can add a thin volumes and snapshots. The data directory for the mapping
 Postgres instance is about 134GB. However, since we are using thin provisioning let us create a 149GB volume for our
 data.
 
-```bash
+<highlight-code lang="bash">
 lvcreate -V 149GB --thin --name thin_volume_1 docker/thin_pool
-# Logical volume "thin_volume_1" created.
+\# Logical volume "thin_volume_1" created.
 lvs -a
-# LV                VG     Attr       LSize   Pool      Origin Data%  Meta%  Move Log Cpy%Sync Convert
-# [lvol0_pmspare]   docker ewi-------  76.00m                                                         
-# thin_pool         docker twi-a-tz-- 149.85g                  0.00   0.44                            
-# [thin_pool_tdata] docker Twi-ao---- 149.85g                                                         
-# [thin_pool_tmeta] docker ewi-ao----  76.00m                                                         
-# thin_volume_1     docker Vwi-a-tz-- 149.00g thin_pool        0.00
-```
+\# LV                VG     Attr       LSize   Pool      Origin Data%  Meta%  Move Log Cpy%Sync Convert
+\# [lvol0_pmspare]   docker ewi-------  76.00m                                                         
+\# thin_pool         docker twi-a-tz-- 149.85g                  0.00   0.44                            
+\# [thin_pool_tdata] docker Twi-ao---- 149.85g                                                         
+\# [thin_pool_tmeta] docker ewi-ao----  76.00m                                                         
+\# thin_volume_1     docker Vwi-a-tz-- 149.00g thin_pool        0.00
+</highlight-code>
 
 When we create a snapshot, we will also be adding it to this pool. Sizes are not specified with thin snapshots, but as
 long as the combined usage of the volume and the snapshot does not exceed the size of the pool (149.85G) we will be
@@ -145,14 +145,14 @@ okay.
 
 Now that we have our volume, lets format it with an EXT4 file system and mount it.
 
-```bash
+<highlight-code lang="bash">
 mkdir /mnt/vol1
 mkfs.ext4 /dev/docker/thin_volume_1
 mount /dev/docker/thin_volume_1 /mnt/vol1
 df -h
-# Filesystem                        Size  Used Avail Use% Mounted on
-# /dev/mapper/docker-thin_volume_1  147G   60M  140G   1% /mnt/vol1
-```
+\# Filesystem                        Size  Used Avail Use% Mounted on
+\# /dev/mapper/docker-thin_volume_1  147G   60M  140G   1% /mnt/vol1
+</highlight-code>
 
 ### Snapshotting
 
@@ -162,9 +162,9 @@ Now that the volumes have been created, restore your database to the volume and 
 a snapshot. The logical volume can remain mounted and in use during the creation of the snapshot. To create the
 snapshot, run the following as the root user:
 
-```bash
+<highlight-code lang="bash">
 lvcreate -s --name thin_volume_1_snapshot docker/thin_volume_1
-```
+</highlight-code>
 
 Now that the snapshot has been created, you are good to change and modify the PostgreSQL data however you wish.
 
@@ -173,12 +173,12 @@ Now that the snapshot has been created, you are good to change and modify the Po
 Once you are finished making changes and want to revert to the initial state of the database, you must first stop
 Postgres. Once this is done, run the following commands as root:
 
-```bash
+<highlight-code lang="bash">
 umount /mnt/vol1
 lvconvert --merge docker/thin_volume_1_snapshot
 lvcreate -s --name thin_volume_1_snapshot docker/thin_volume_1
 mount /dev/docker/thin_volume_1 /mnt/vol1
-```
+</highlight-code>
 
 The first command unmounts the logical volume. The second command, resets the logical volume to the state it was at
 whenever "thin_volume_1_snapshot" was created. By running this command, the snapshot is removed which is why we run the
