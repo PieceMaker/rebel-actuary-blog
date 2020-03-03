@@ -6,3 +6,6 @@ node_modules/
 
 # Saber build
 .saber
+
+# Saber production output
+public/
