@@ -1,7 +1,6 @@
 ---
 title: PostgreSQL LVM Snapshotting
-date: 2019-12-15
-updated: 2019-12-22
+date: 2020-03-02T12:00:00
 layout: page
 ---
 
