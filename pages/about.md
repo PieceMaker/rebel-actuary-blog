@@ -1,8 +1,7 @@
 ---
+title: About Me
 layout: page
 ---
-
-## About me
 
 My name is Jonathan Adams and I am an actuarial analyst and software developer/test engineer based in West Texas.
 My original love was mathematics and statistics, but thanks to the help of some friends and coworkers I learned

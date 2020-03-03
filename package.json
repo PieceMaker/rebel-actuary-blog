@@ -11,12 +11,17 @@
   "author": "Jonathan Adams",
   "license": "ISC",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.26",
+    "@fortawesome/free-brands-svg-icons": "^5.12.0",
+    "@fortawesome/vue-fontawesome": "^0.1.9",
     "bootstrap": "^4.4.1",
     "bootstrap-vue": "^2.1.0",
     "bootswatch": "^4.4.1",
+    "highlight.js": "^9.18.1",
     "saber": "^0.11.3",
     "saber-plugin-query-posts": "^0.4.5",
     "sass": "^1.23.7",
-    "sass-loader": "^8.0.0"
+    "sass-loader": "^8.0.0",
+    "vue-highlight.js": "^3.1.0"
   }
 }
