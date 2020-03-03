@@ -20,7 +20,9 @@ Vue.use(BootstrapVue);
 
 import bash from 'highlight.js/lib/languages/bash';
 import javascript from 'highlight.js/lib/languages/javascript';
-import 'highlight.js/styles/dark.css';
+// import 'highlight.js/styles/hybrid.css';
+import 'highlight.js/styles/obsidian.css'; // Best
+// import 'highlight.js/styles/ocean.css';
 
 import VueHighlightJS from 'vue-highlight.js';
 Vue.use(
