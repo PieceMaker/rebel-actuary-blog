@@ -2,7 +2,7 @@
     <div class="recent-posts" v-if="page.posts">
         <navbar></navbar>
         <b-row>
-            <b-col cols="4" offset="4">
+            <b-col offset-lg="3" lg="6" offset-md="2" md="8" offset-sm="1" sm="10">
                 <b-card>
                     <b-list-group>
                         <b-list-group-item
