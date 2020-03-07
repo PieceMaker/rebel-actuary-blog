@@ -2,7 +2,7 @@
     <div class="page-wrapper">
         <b-container>
             <b-row>
-                <b-col cols="10" offset="1">
+                <b-col>
                     <b-card>
                         <b-card-title class="text-center text-underline page-title">{{page.title}}</b-card-title>
                         <slot name="default"></slot>
