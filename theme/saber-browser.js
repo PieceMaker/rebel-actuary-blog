@@ -40,9 +40,12 @@ Vue.use(
 //----------------------------------------------------------------------------------------------------------------------
 
 // Font Awesome
-import { library } from '@fortawesome/fontawesome-svg-core';
+import { library, config } from '@fortawesome/fontawesome-svg-core';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+// There is a weird timing issue with the auto-loading that causes the GitHub and Twitter icons to be of size 0
+config.autoAddCss = false;
 
 library.add(fab);
 Vue.component('fa', FontAwesomeIcon);
