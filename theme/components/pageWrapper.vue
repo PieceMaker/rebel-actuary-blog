@@ -1,22 +1,24 @@
 <template>
     <div class="page-wrapper">
-        <b-row>
-            <b-col cols="10" offset="1">
-                <b-card>
-                    <b-card-title class="text-center text-underline page-title">{{page.title}}</b-card-title>
-                    <slot name="default"></slot>
-                    <b-card-footer
-                        class="text-center text-muted hide-background"
-                        v-show="isPost"
-                    >
-                        Created: {{formatDate(page.createdAt)}}
-                        <div v-show="isUpdated">
-                            Updated: {{formatDate(page.updatedAt)}}
-                        </div>
-                    </b-card-footer>
-                </b-card>
-            </b-col>
-        </b-row>
+        <b-container>
+            <b-row>
+                <b-col>
+                    <b-card>
+                        <b-card-title class="text-center text-underline page-title">{{page.title}}</b-card-title>
+                        <slot name="default"></slot>
+                        <b-card-footer
+                            class="text-center text-muted hide-background"
+                            v-show="isPost"
+                        >
+                            Created: {{formatDate(page.createdAt)}}
+                            <div v-show="isUpdated">
+                                Updated: {{formatDate(page.updatedAt)}}
+                            </div>
+                        </b-card-footer>
+                    </b-card>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 

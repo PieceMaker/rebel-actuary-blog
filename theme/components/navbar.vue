@@ -6,10 +6,10 @@
         </b-navbar-nav>
         <b-navbar-nav class="ml-auto">
             <b-nav-item href="https://github.com/PieceMaker">
-                <fa class="social" :icon="[ 'fab', 'github' ]"></fa>
+                <fa :icon="[ 'fab', 'github' ]"></fa>
             </b-nav-item>
             <b-nav-item href="https://twitter.com/RebelActuary">
-                <fa class="social" :icon="[ 'fab', 'twitter' ]"></fa>
+                <fa :icon="[ 'fab', 'twitter' ]"></fa>
             </b-nav-item>
         </b-navbar-nav>
     </b-navbar>
@@ -22,8 +22,5 @@
 </script>
 
 <style scoped>
-    .social {
-        height: 1em;
-        width: 1em;
-    }
+
 </style>
