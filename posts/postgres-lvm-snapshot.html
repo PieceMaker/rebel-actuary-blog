@@ -36,7 +36,7 @@ production. This article assumes a loopback file exists at <code data-v-14d849fe
 truncate -s 150G /var/lib/postgresql/data.vol
 <span class="hljs-built_in">exit</span>
 sudo losetup /dev/loop5 /var/lib/postgresql/data.vol</code></pre><p data-v-14d849fe></p> <p data-v-14d849fe>Note, I chose 150G as this size is sufficient for the database I am using. Your size will likely differ.</p> <h3 id="ubuntu-thin-provisioning" data-v-14d849fe>Ubuntu Thin Provisioning</h3> <p data-v-14d849fe>Ensure thin provisioning tools are available in Ubuntu.</p> <pre><code class="hljs bash">sudo apt-get update
-sudo apt-get install thin-provisioning-tools</code></pre><p data-v-14d849fe></p> <h3 id="volumes" data-v-14d849fe>Volumes</h3> <p data-v-14d849fe>LVM requires you to specify three bits of information for storage:</p> <ol data-v-14d849fe><li data-v-14d849fe>Physical volumes</li> <li data-v-14d849fe>Volumes groups</li> <li data-v-14d849fe>Logical volumes</li></ol> <p data-v-14d849fe>Note, the following volume commands will be run as the root user. This can be done by using <code data-v-14d849fe>sudo</code> or by logging in as
+sudo apt-get install thin-provisioning-tools</code></pre><p data-v-14d849fe></p> <h3 id="volumes" data-v-14d849fe>Volumes</h3> <p data-v-14d849fe>LVM requires you to specify three bits of information for storage:</p> <ol data-v-14d849fe><li data-v-14d849fe>Physical volumes</li> <li data-v-14d849fe>Volume groups</li> <li data-v-14d849fe>Logical volumes</li></ol> <p data-v-14d849fe>Note, the following volume commands will be run as the root user. This can be done by using <code data-v-14d849fe>sudo</code> or by logging in as
 root, the option chosen here.</p> <h4 id="physical-volumes" data-v-14d849fe>Physical Volumes</h4> <p data-v-14d849fe>The physical volumes represent available storage media. These are typically partitions and/or hard disks that can be
 used for storage, but in our example it will be a loopback device. To register our loopback device as a physical volume
 we run</p> <pre><code class="hljs bash">pvcreate /dev/loop5
@@ -60,9 +60,8 @@ lvs -a
 <span class="hljs-comment"># [lvol0_pmspare]   docker ewi-------  76.00m</span>
 <span class="hljs-comment"># thin_pool         docker twi-a-tz-- 149.85g             0.00   0.44</span>
 <span class="hljs-comment"># [thin_pool_tdata] docker Twi-ao---- 149.85g</span>
-<span class="hljs-comment"># [thin_pool_tmeta] docker ewi-ao----  76.00m</span></code></pre><p data-v-14d849fe></p> <p data-v-14d849fe>Now that the thin pool has been created, we can add a thin volumes and snapshots. The data directory for the mapping
-Postgres instance is about 134GB. However, since we are using thin provisioning let us create a 149GB volume for our
-data.</p> <pre><code class="hljs bash">lvcreate -V 149GB --thin --name thin_volume_1 docker/thin_pool
+<span class="hljs-comment"># [thin_pool_tmeta] docker ewi-ao----  76.00m</span></code></pre><p data-v-14d849fe></p> <p data-v-14d849fe>Now that the thin pool has been created, we can add thin volumes and snapshots. The data directory for the server I
+am testing is about 134GB. However, since I am using thin provisioning I created a 149GB volume for my data.</p> <pre><code class="hljs bash">lvcreate -V 149GB --thin --name thin_volume_1 docker/thin_pool
 <span class="hljs-comment"># Logical volume "thin_volume_1" created.</span>
 lvs -a
 <span class="hljs-comment"># LV                VG     Attr       LSize   Pool      Origin Data%  Meta%  Move Log Cpy%Sync Convert</span>
@@ -89,5 +88,5 @@ third command to create a new snapshot. Finally, we remount the reverted logical
 our data and server should be as they were when we created the initial snapshot.</p> <div class="card-footer text-center text-muted hide-background" data-v-14d849fe data-v-14d849fe>
                         Created: 2020/03/02
                         <div style="display:none;" data-v-14d849fe>
-                            Updated: 2020/03/02
-                        </div></div></div><!----><!----></div></div></div></div></div></div></div><script src="/rebel-actuary-blog/_saber/js/client.5dd98f4f.js" defer></script><script src="/rebel-actuary-blog/_saber/js/page--_posts-postgres-lvm-snapshot-md.60b681b1.js" defer></script></body></html>
+                            Updated: 2020/03/08
+                        </div></div></div><!----><!----></div></div></div></div></div></div></div><script src="/rebel-actuary-blog/_saber/js/client.481dcbe8.js" defer></script><script src="/rebel-actuary-blog/_saber/js/page--_posts-postgres-lvm-snapshot-md.6ae42c10.js" defer></script></body></html>
