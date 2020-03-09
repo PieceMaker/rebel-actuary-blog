@@ -67,7 +67,7 @@ sudo apt-get install thin-provisioning-tools
 LVM requires you to specify three bits of information for storage:
 
 1. Physical volumes
-2. Volumes groups
+2. Volume groups
 3. Logical volumes
 
 Note, the following volume commands will be run as the root user. This can be done by using `sudo` or by logging in as
@@ -122,9 +122,8 @@ lvs -a
 \# [thin_pool_tmeta] docker ewi-ao----  76.00m
 </highlight-code>
 
-Now that the thin pool has been created, we can add a thin volumes and snapshots. The data directory for the mapping
-Postgres instance is about 134GB. However, since we are using thin provisioning let us create a 149GB volume for our
-data.
+Now that the thin pool has been created, we can add thin volumes and snapshots. The data directory for the server I
+am testing is about 134GB. However, since I am using thin provisioning I created a 149GB volume for my data.
 
 <highlight-code lang="bash">
 lvcreate -V 149GB --thin --name thin_volume_1 docker/thin_pool
