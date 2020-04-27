@@ -6,7 +6,7 @@ module.exports = {
         publicUrl: '/rebel-actuary-blog/'
     },
     siteConfig: {
-        title: 'My Blog'
+        title: 'Rebel Actuary Blog'
     },
     theme: './theme'
 };
