@@ -47,7 +47,7 @@ Entering rescue mode...
 grub rescue>
 </highlight-code>
 
-Uh oh, I forgot that Grub was handling the dual-boot and lived on the Linux partition. What to do?
+Uh oh, I forgot that GRUB was handling the dual-boot and lived on the Linux partition. What to do?
 
 A quick Google search resulted in
 [an article](https://www.partitionwizard.com/partitionmagic/error-no-such-partition.html) that covers just this issue.
